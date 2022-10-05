@@ -24,17 +24,28 @@ const Home: NextPage = () => {
           Welcome to Greg&apos;s config PoC!
         </h1>
 
-        {clientConfig &&
-          <div className={styles.description} style={{ textAlign: 'left' }}>
-            Your dynamic config is: <pre>{JSON.stringify(clientConfig, null, 2)}</pre>
-          </div>
-        }
+        <hr style={{ margin: '2rem auto',width: '25%' }}/>
 
-        {apiData &&
-          <div className={styles.description} style={{ textAlign: 'left' }}>
-            Your API data is: <pre>{JSON.stringify(apiData, null, 2)}</pre>
-          </div>
-      }
+        <div>
+          <p>
+            Run demo using: <strong><code>NEXT_PUBLIC_API_URL=https://reqres.in/api/users npm run dev</code></strong><br/>
+            or <strong><code>NEXT_PUBLIC_API_URL=https://reqres.in/api/users/1 npm run dev</code></strong>.
+          </p>
+
+          {clientConfig &&
+            <>
+              <strong>Your dynamic runtime config is:</strong>
+              <pre>{JSON.stringify(clientConfig, null, 2)}</pre>
+            </>
+          }
+          {apiData &&
+            <>
+              <strong>Your API data is:</strong>
+              <pre>{JSON.stringify(apiData, null, 2)}</pre>
+            </>
+          }
+        </div>
+
       </main>
     </div>
   )

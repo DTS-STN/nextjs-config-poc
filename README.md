@@ -15,4 +15,5 @@ npm run build
 NEXT_PUBLIC_API_URL=https://reqres.in/api/users npm start
 ```
 
-You can replace the API URL with any API that returns JSON data.
+You can replace the API URL with any API that returns JSON data.  
+ex: `NEXT_PUBLIC_API_URL=https://reqres.in/api/users/2`
