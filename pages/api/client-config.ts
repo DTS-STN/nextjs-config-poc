@@ -1,15 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import getConfig from "next/config";
+import type { NextApiRequest, NextApiResponse } from 'next'
+import getConfig from "next/config"
 
-type Data = {
-  name: string
-}
+const { serverRuntimeConfig } = getConfig()
 
-const { serverRuntimeConfig } = getConfig();
-
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+const clientConfig = (req: NextApiRequest, res: NextApiResponse<{ name: string }>) => {
   res.status(200).json(serverRuntimeConfig)
 }
+
+export default clientConfig

@@ -1,16 +1,15 @@
+import { useQuery } from '@tanstack/react-query'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import useClientConfig from '../hooks/use-client-config'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-  const [config, setConfig] = useState()
+  const { clientConfig } = useClientConfig()
 
-  useEffect(() => {
-    fetch('/api/client-config')
-      .then(res => res.json())
-      .then(json => setConfig(json))
-  }, [setConfig])
+  const { data: apiData } = useQuery(['api-data'], async () => {
+    return (await fetch(clientConfig.NEXT_PUBLIC_API_URL)).json()
+  }, { enabled: !!clientConfig })
 
   return (
     <div className={styles.container}>
@@ -22,16 +21,20 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to Greg's config PoC!
+          Welcome to Greg&apos;s config PoC!
         </h1>
 
-        {config &&
+        {clientConfig &&
           <div className={styles.description} style={{ textAlign: 'left' }}>
-            Your dynamic config is:
-            <pre>{JSON.stringify(config, null, 2)}</pre>
+            Your dynamic config is: <pre>{JSON.stringify(clientConfig, null, 2)}</pre>
           </div>
         }
 
+        {apiData &&
+          <div className={styles.description} style={{ textAlign: 'left' }}>
+            Your API data is: <pre>{JSON.stringify(apiData, null, 2)}</pre>
+          </div>
+      }
       </main>
     </div>
   )
