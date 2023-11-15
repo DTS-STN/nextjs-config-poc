@@ -1,16 +1,15 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-type ClientConfig = {
-  [key: string]: string | undefined
-}
+export type ClientConfig = {
+  [key: string]: string | undefined;
+};
 
 const nextPublicConfigs = Object.keys(process.env)
-  .filter(key => key.startsWith('NEXT_PUBLIC'))
-  .reduce((previousValue, currentValue) => ({ ...previousValue, [currentValue]: process.env[currentValue] }), {})
+  .filter((key) => key.startsWith('NEXT_PUBLIC'))
+  .reduce((previousValue, currentValue) => ({ ...previousValue, [currentValue]: process.env[currentValue] }), {});
 
 const clientConfig = (req: NextApiRequest, res: NextApiResponse<ClientConfig>) => {
-  res.status(200).json(nextPublicConfigs)
-}
+  res.status(200).json(nextPublicConfigs);
+};
 
-export default clientConfig
-export type { ClientConfig }
+export default clientConfig;

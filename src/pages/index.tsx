@@ -1,17 +1,15 @@
-import { useQuery } from '@tanstack/react-query'
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import useClientConfig from '../hooks/use-client-config'
-import styles from '../styles/Home.module.css'
+import { useQuery } from '@tanstack/react-query';
+import Head from 'next/head';
+import { useClientConfig } from '../hooks/use-client-config';
+import styles from '../styles/Home.module.css';
 
-const Home: NextPage = () => {
-  const { clientConfig } = useClientConfig()
-
-  const { data: apiData } = useQuery(['api-data'], async () => {
-    return (await fetch(clientConfig.NEXT_PUBLIC_API_URL)).json()
-  }, { enabled: !!clientConfig })
+const Home = () => {
+  const { clientConfig } = useClientConfig();
+  const fetchFn = async () => (await fetch(clientConfig.NEXT_PUBLIC_API_URL)).json();
+  const { data: apiData } = useQuery({ queryKey: ['api-data'], queryFn: fetchFn, enabled: !!clientConfig });
 
   return (
+    // prettier-ignore
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -48,7 +46,7 @@ const Home: NextPage = () => {
 
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
